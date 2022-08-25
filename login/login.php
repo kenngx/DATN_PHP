@@ -1,24 +1,42 @@
 <?php
 $tb = "";
 $conn = new mysqli("localhost", "root", "", "datn_data");
+
 if (isset($_POST['username'])) {
 	$username = $_POST['username'];
 	$password = md5($_POST['password']);
+    // $roleid = $_POST['roleid'];
 	if ($username == '' || $password == '') {
 		$tb = "Hãy nhập đầy đủ thông tin";
 	} else {
-		$sql = "SELECT * FROM account WHERE username = '$username' AND password = '$password'";
+        $roleid = "SELECT roleid FROM account WHERE username = '$username'";
+		$sql = "SELECT * FROM account WHERE username = '$username' AND password = '$password' ";
 		$sql_select_admin = mysqli_query($conn, $sql);
+        $sql_role = mysqli_query($conn, $roleid);
 
 		if (mysqli_num_rows($sql_select_admin) > 0) {
 			$res = mysqli_fetch_assoc($sql_select_admin);
 			session_start();
 			$_SESSION["id_nd"] =  $password;
 			$_SESSION["ten_nd"] =  $username;
-			header("Location: ../html/index.html");
+			// if(isset ($sql_role)== '1'){
+            //     header('../admin/index.html');
+            // }
+            // else if(isset ($sql_role) == '2')
+            // {
+            //     header('../nhacungcap/index_nhacungcap.php');
+            // }
+            // else if(isset ($sql_role) == '3')
+            // {
+            //     header('../employee/index_employee.php');
+            // }
+            if($sql_role == '1'){
+                echo"ok";
+            }
 		} else {
 			//$tb = "Bạn đã nhập sai tên đăng nhập hoặc mật khẩu";
             echo '<script>alert("Bạn đã nhập sai tên đăng nhập hoặc mật khẩu")</script>';
+            
 		}
 	}
 }
