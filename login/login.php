@@ -1,44 +1,36 @@
 <?php
-$tb = "";
-$conn = new mysqli("localhost", "root", "", "datn_data");
+$tb = '';
+$conn = new mysqli('localhost', 'root', '', 'nguyentuananh_datn');
 
 if (isset($_POST['username'])) {
-	$username = $_POST['username'];
-	$password = md5($_POST['password']);
-    // $roleid = $_POST['roleid'];
-	if ($username == '' || $password == '') {
-		$tb = "Hãy nhập đầy đủ thông tin";
-	} else {
-        $roleid = "SELECT roleid FROM account WHERE username = '$username'";
-		$sql = "SELECT * FROM account WHERE username = '$username' AND password = '$password' ";
-		$sql_select_admin = mysqli_query($conn, $sql);
-        $sql_role = mysqli_query($conn, $roleid);
+    $username = $_POST['username'];
+    $password = md5($_POST['password']);
+    $check_session = $res['roleid'];
+    if ($username == '' || $password == '') {
+        $tb = 'Hãy nhập đầy đủ thông tin';
+    } else {
+       
+        $sql = "SELECT * FROM account WHERE username = '$username' AND password = '$password' ";
+        $sql_select_admin = mysqli_query($conn, $sql);
+       
 
-		if (mysqli_num_rows($sql_select_admin) > 0) {
-			$res = mysqli_fetch_assoc($sql_select_admin);
-			session_start();
-			$_SESSION["id_nd"] =  $password;
-			$_SESSION["ten_nd"] =  $username;
-			// if(isset ($sql_role)== '1'){
-            //     header('../admin/index.html');
-            // }
-            // else if(isset ($sql_role) == '2')
-            // {
-            //     header('../nhacungcap/index_nhacungcap.php');
-            // }
-            // else if(isset ($sql_role) == '3')
-            // {
-            //     header('../employee/index_employee.php');
-            // }
-            if($sql_role == '1'){
-                echo"ok";
+        if (mysqli_num_rows($sql_select_admin) > 0) {
+            $res = mysqli_fetch_assoc($sql_select_admin);
+            session_start();
+            $_SESSION['id_nd'] = $password;
+            $_SESSION['ten_nd'] = $username;
+            if ($res['roleid'] == '1') {
+                header('location:../admin/index.html');
+            } elseif ($res['roleid'] == '2') {
+                header('location:../nhacungcap/index.php');
+            } elseif ($res['roleid'] == '3') {
+                header('location:../employee/index.php');
             }
-		} else {
-			//$tb = "Bạn đã nhập sai tên đăng nhập hoặc mật khẩu";
+        } else {
+            //$tb = "Bạn đã nhập sai tên đăng nhập hoặc mật khẩu";
             echo '<script>alert("Bạn đã nhập sai tên đăng nhập hoặc mật khẩu")</script>';
-            
-		}
-	}
+        }
+    }
 }
 ?>
 
@@ -46,7 +38,7 @@ if (isset($_POST['username'])) {
 <html lang="zxx">
 
 <head>
-    <title>Gathering Log In form Responsive Widget Template :: W3layouts</title>
+    <title>Login</title>
     <!-- Meta tag Keywords -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta charset="UTF-8" />
@@ -66,20 +58,21 @@ if (isset($_POST['username'])) {
             <!-- main content -->
             <div class="w3l-form-info">
                 <div class="w3_info">
-                    <h1>Đăng Nhập</h1>
-                    
+                    <h1 style = "font-family:arial; font-weight: 700;color: yellow">Đăng Nhập Hệ Thống</h1>
+</br>
+</br>
                     
                     <form action="#" method="post"style = "opacity: 0.5">
                         <div class="input-group">
                             <span><i class="fa fa-user" aria-hidden="true"></i></span>
-                            <input type="text" placeholder=" Username" required="" name="username">
+                            <input type="text" placeholder=" Tài Khoản" required="" name="username">
                         </div>
                         <div class="input-group two-groop">
                             <span><i class="fa fa-key" aria-hidden="true"></i></span>
-                            <input type="Password" placeholder="Password" required="" name="password">
+                            <input type="Password" placeholder="Mật Khẩu" required="" name="password">
                         </div>
                         
-                        <button class="btn btn-primary btn-block" type="submit">Log In</button>
+                        <button class="btn btn-primary btn-block" type="submit">Đăng Nhập</button>
                     </form>
                 
                    

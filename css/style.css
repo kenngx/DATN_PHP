@@ -31,8 +31,8 @@ body {
    font-size: 100%;
 }
 .search {
-  text-align: center;
-  margin: 22em 0em 0em 0em;
+  /* text-align: center; */
+  margin: 0em 0em 0em 0em;
   position: relative;
 }
 .s-bar {
@@ -105,7 +105,7 @@ body {
   height: 31px;
   display: block;
   position: absolute;
-  top: 32%;
+  top: 16%;
   left: 33.5%;
   cursor: pointer;
 }
@@ -125,7 +125,7 @@ body {
 	text-decoration:none;
 }
 .copyright {
-  margin: 20em 0em 0em 0em;
+  margin: 41em 0em 0em 0em;
   text-align: center;
 }
 .copyright p {
@@ -165,7 +165,7 @@ body {
   width: 63%;
 }
 .search i {
-  left: 30.2%;
+  left: 25.2%;
 }
 }
 @media(max-width:1024px){
